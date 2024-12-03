@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+
+    <!--Korrekte Interpretation mit meta-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Tab Beschriftung-->
+    <title>Bestellen</title>
+
+    <!--Icon im Tab hinzufügen als .icon/ .png/ oder .jpg-->
+    <link rel="icon" type="image/png" href="./img/Web_Logo.ico">
+
+    <!--Verlinkung zur Hauptseite-->
+    <nav><a href="test.html">Zurück zur Haubtseite</a></nav>
+
+    <!--Verlinkung zur css "Dateipfad"-->
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<!--Body mit einem Hintergrund Vollbild nach Wahl-->
+<body style="background-image: url('img/Hintergrund.jpg'); 
+background-size: cover; 
+background-position: center; 
+background-repeat: no-repeat; 
+height: 100%; 
+margin: 0;">
+
+    <!--Division der Klasse content-->
+    <div class="content">
+
+        <!--Überschrift-->
+        <h1>Bestellformular</h1>
+            <form action="#" method="post">
+                <div class="form-section">
+                    <!--Division für auswahl von Marke und Modell-->
+                    <div class="form-row">
+
+                        <!--Auswahlfenster für Marke--> 
+                        <form>
+                            <label for="marke">Marke:</label>
+                                <!--Java script für die Beschriftung und Auswahlkriterien der Marke-->
+                                <select id="marke" onchange="updateModelDropdown()">
+                                    <option value="" disabled selected>Bitte Marke wählen</option>
+                                    <option value="BMW">BMW</option>
+                                    <option value="Toyota">Toyota</option>
+                                    <option value="Nissan">Nissan</option>
+                                </select>
+                           <br>
+                        <!--auswahlfenster für modell-->        
+                            <label for="modell">Modell:</label>
+                                <select id="modell" class="disabled" disabled>
+                                    <option value="" disabled selected>Bitte Modell wählen</option>
+                                </select>
+                        </form>
+
+                        <!--Java script für die Modellauswahl erst nach dem Auswahlfenster für Marke möglich-->
+                        <script>
+                            const modelle = {
+                                BMW: ["M3 E46 GTR", "M3 E46"],
+                                Toyota: ["Supra MK4"],
+                                Nissan: ["GTR R34 Nismo", "GTR R34 Nür", "GTR R34 V-spec 2", "GTT R34"]
+                            };
+                        
+                            function updateModelDropdown() {
+                                const markeDropdown = document.getElementById("marke");
+                                const modellDropdown = document.getElementById("modell");
+                                // Marke auslesen
+                                const selectedMarke = markeDropdown.value;
+                                // Modell Dropdown leeren
+                                modellDropdown.innerHTML = '<option value="" disabled selected>Bitte Modell wählen</option>';
+                                // Modelle basierend auf der Marke hinzufügen
+                                if (modelle[selectedMarke]) {
+                                    modelle[selectedMarke].forEach(modell => {
+                                        const option = document.createElement("option");
+                                        option.value = modell;
+                                        option.textContent = modell;
+                                        modellDropdown.appendChild(option);
+                                    });
+                                    // Dropdown aktivieren
+                                    modellDropdown.disabled = false;
+                                    modellDropdown.classList.remove("disabled");
+                                } else {
+                                    // Dropdown deaktivieren
+                                    modellDropdown.disabled = true;
+                                    modellDropdown.classList.add("disabled");
+                                }
+                            }
+                        </script>
+                        <br><br>
+                    </div>
+
+                    <!--Division für Auswahl der Leasing Tage-->
+                    <div class="form-row">
+                        <!--Beschriftung des Auswahlfenster der Leasing Tage-->
+                        <label for="zeitraum">Dauer:</label>
+                        <!--Java Script für Auswahl der Leasing Tage-->
+                        <select id="tage" name="Tage">
+                            <option value="" disabled selected>Bitte Tage wählen</option>
+                            <!-- Optionen von 1 bis 25 -->
+                            <script>
+                                for(let i = 1; i <= 25; i++) {
+                                    document.write(`<option value="${i}">${i}</option>`);
+                                }
+                            </script>
+                        </select>
+                    </div>
+                </div>
+                <br><br>
+
+                <!--Division für den Anmerkungskasten--> 
+                <div class="form-section">
+                    <label for="notes">Anmerkungen:</label><br>
+                    <textarea id="notes" name="notes" rows="4"></textarea>
+                </div>        
+                <br><br>
+                
+                <!--Division für Sonderwünsche-->
+                <div class="form-section">
+                    <label>Sonderwünsche:</label>
+                    <div class="checkbox-group">
+                        <label><input type="radio" id="red" name="sonderwuensche" value="red"> Rot</label>
+                        <label><input type="radio" id="Silver" name="sonderwuensche" value="silver"> Silber</label>
+                        <label><input type="radio" id="black" name="sonderwuensche" value="black"> Schwarz</label>
+                    </div>
+                </div>
+                <br><br>
+
+                <!--Divison für Versicherungsart-->
+                <div class="form-section">
+                    <label>Versicherungsart:</label>
+                    <div class="radio-group">
+                        <label><input type="radio" id="Haftplicht" name="Versicherungsart" value="dhl" required> Haftplicht</label>
+                        <label><input type="radio" id="Teil-Kasko" name="Versicherungsart" value="drohne"> Teil-Kasko</label>
+                        <label><input type="radio" id="Voll-Kasko" name="Versicherungsart" value="fahrrad"> Voll-Kasko</label>
+                    </div>
+                </div>
+                <br><br>
+
+                <!--Divion für Lieferdatum-->
+                <div class="form-section">
+                    <div class="form-row">
+                        <label for="lieferdatum">Lieferdatum:</label>
+                        <input type="date" id="lieferdatum" name="lieferdatum">
+                    </div>
+                </div>
+                <br><br>
+            
+                <div class="buttons">
+                    <a href="test.html"><button type="reset" style="margin-right: 15px;">Reset</button></a>
+                    
+                    <a href="Dankeschon.html"><button type="submit" style="margin-left: 15px;">Absenden</button></a>
+                </div>
+            </form>    
+    </div>
+<footer>
+    <p>
+        <a href="impressum.html">Impressum/Datenschutz</a>
+    </p>
+</footer>
+</body>
+</html>

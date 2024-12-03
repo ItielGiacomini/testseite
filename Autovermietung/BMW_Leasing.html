@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    
+    <!--Korrekte Interpretation mit meta-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Tab Beschriftung-->
+    <title>BMW Leasing</title>
+
+    <!--Icon im Tab hinzufügen als .icon/ .png/ oder .jpg-->
+    <link rel="icon" type="image/png" href="./img/Web_Logo.ico">
+
+    <!--Verlinkung zur Hauptseite-->
+    <nav><a href="test.html">Zurück zur Haubtseite</a></nav>
+
+    <!--Verlinkung zur css "Dateipfad"-->
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+
+<!--Body mit einem Hintergrund Vollbild nach Wahl-->
+<body style="background-image: url('img/Hintergrund.jpg'); 
+background-size: cover; 
+background-position: center; 
+background-repeat: no-repeat; 
+height: 100vh; 
+margin: 0;">
+    
+    <!--Überschrift-->
+    <center>
+    <h1>
+        <font size="10">BMW Power</font>
+    </h1>
+    </center>
+
+    <!--Bilder-->
+    <div class="image-container">
+        <img src="./img/BMW_Vorne.jpg" alt="Bild 1">
+        <img src="./img/BMW_Vorne_Seite.jpg" alt="Bild 2">
+        <img src="./img/BMW_Hinten.jpg" alt="Bild 3">
+    </div>
+    <br>
+    <br>
+
+    <!--Tabellenüberschrift-->
+    <center>
+    <h1>
+        Preis-Tabelle
+    </h1>
+    </center>
+
+    <!--Tabelle-->
+    <table class="styled-table">
+        <!--Tabbellenkopf und Spalten-->
+        <thead>
+            <tr>
+                <th>Marke</th>
+                <th>Modell</th>
+                <th>Haftplicht in € pro Tag</th>
+                <th>Teil-Kasko in € pro Tag in €</th>
+                <th>Voll-Kasko in € pro Tag in €</th>
+                <th>Pro Tag in €</th>
+            </tr>
+        </thead>
+        <!--Tabelleninhalt und Zeilen-->
+        <tbody>
+            <tr>
+                <td>BMW</td>
+                <td>M3 E46 GTR</td>
+                <td>15</td>
+                <td>45</td>
+                <td>120</td>
+                <td>150</td>
+            </tr>
+            <tr>
+                <td>BMW</td>
+                <td>M3 E46</td>
+                <td>12</td>
+                <td>40</td>
+                <td>100</td>
+                <td>75</td>
+            </tr>  
+        </tbody>
+    </table>
+    <br>
+    <br>
+
+<!--Button mit Link zur Bestellübersicht-->
+<a href="Bestellvorgang.html" class="buttons-position"><button type="reset">Zur Bestellung</button></a>
+
+</body>
+</html>

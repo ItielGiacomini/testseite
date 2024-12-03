@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+
+    <!--Korrekte Interpretation mit meta-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Tab Beschriftung-->
+    <title>Login-System</title>
+
+    <!--Icon im Tab hinzufügen als .icon/ .png/ oder .jpg-->
+    <link rel="icon" type="image/png" href="./img/Web_Logo.ico">
+
+    <!--Verlinkung zur css "Dateipfad"-->
+    <link rel="stylesheet" href="styles.css">
+
+    <!--Style-->
+    <style>
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            max-width: 90%;
+            text-align: center;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+        input {
+            width: calc(100% - 20px);
+            height: auto;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        input[type="text"] {
+            width: calc(100% - 209px);
+            height: auto;
+            padding: 10px;
+            /*margin-top: 5px;*/
+            margin: 1px 5px 10px 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        input[type="number"]{
+            width: 75px;
+            height: auto;
+            padding: 10px;
+            margin: 0 0 0 0;
+            border: 1px solid #ccc;
+            border: 6px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .status {
+            margin-top: 20px;
+            color: #555;
+        }
+        .main-content {
+            padding: 20px;
+            text-align: center;
+        }
+        .register-popup {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            height: 650px;
+            max-width: 90%;
+            max-height: 90%;
+            text-align: center;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            display: none;
+        }
+    </style>
+
+</head>
+
+<!--Body mit einem Hintergrund Vollbild nach Wahl-->
+<body style="background-image: url('img/Hintergrund.jpg'); 
+background-size: cover; 
+background-position: center; 
+background-repeat: no-repeat; 
+height: 100vh; 
+margin: 0;">
+
+    <div class="button">
+        <a href="#" onclick="openLoginPopup()" style="margin-left: 90%;"><button type="An/Re">An / Abmelden</button></a>
+    </div>
+
+    <center>
+        <font size=10> Leasing für Blinde</font>
+        <br>
+        <p>Folgende Autos stehen zur Auswahl:</p>
+    </center>
+    <br>
+    <br>
+    <br>
+    <br>
+   
+    <div class="buttons-position">
+        <!-- Bild-Button 1 mit Verlinkung-->
+        <a href="Nissan_Leasing.html" class="image-button"><img src="./img/Nissan_Vorne_Seite.jpg" alt="Nissan_Leasing.html"></a>
+    
+        <!-- Bild-Button 2 mit Verlinkung-->
+        <a href="Supra_Leasing.html" class="image-button"><img src="./img/Supra_Seite2.jpg" alt="Supra_Leasing"></a>
+    
+        <!-- Bild-Button 3 mit Verlinkung-->
+        <a href="BMW_Leasing.html" class="image-button"><img src="./img/BMW_Vorne.jpg" alt="Zur Seite 2"></a>
+    </div>
+    
+    <div class="container" id="loginContainer" style="display: none;">
+        <h2>Login-System</h2>
+        <br>
+        <input type="" id="username" placeholder="Benutzername">
+        <input type="password" id="password" placeholder="Passwort">
+        <button id="loginButton">Einloggen</button>
+        <button id="registerButton" onclick="openRegisterPopup()"> Zum Registrieren</button>
+        <button id="logoutButton" style="display:none;">Ausloggen</button>
+        <button onclick="closeLoginPopup()">Zurück zur Hauptseite</button>
+        <div class="status" id="status">Bitte einloggen oder registrieren</div>
+    </div>
+
+    <div class="register-popup" id="registerContainer">
+        <h2>Registrierung</h2>
+        <input type="text" id="firstname" placeholder="Vorname"> <input type="text" id="lastname" placeholder="Nachname">
+        <input type="text" id="street" placeholder="Straße"> <input type="number" id="housenumber" placeholder="Haus Nr.">
+        <input type="" id="zipcode" placeholder="Postleitzahl">
+        <input type="" id="city" placeholder="Stadt">
+        <input type="" id="email" placeholder="E-Mail Adresse">
+        <input type="" id="userid" placeholder="NutzerID">
+        <input type="password" id="registerPassword" placeholder="Passwort">
+        <input type="password" id="confirmPassword" placeholder="Passwort wiederholen">
+        <button onclick="registerNewUser()">Registrieren</button>
+        <button onclick="closeRegisterPopup()">Abbrechen</button>
+    </div>
+
+    <script>
+        // Dummy "Datenbank" für Benutzer
+        const userDatabase = JSON.parse(localStorage.getItem("userDatabase")) || {};
+
+        // Aktueller Benutzer
+        let currentUser = localStorage.getItem("currentUser") || null;
+
+        // Elemente abrufen
+        const usernameInput = document.getElementById("username");
+        const passwordInput = document.getElementById("password");
+        const loginButton = document.getElementById("loginButton");
+        const registerButton = document.getElementById("registerButton");
+        const logoutButton = document.getElementById("logoutButton");
+        const statusDiv = document.getElementById("status");
+        const loginContainer = document.getElementById("loginContainer");
+        const registerContainer = document.getElementById("registerContainer");
+
+        // Status aktualisieren
+        function updateStatus(message, isError = false) {
+            statusDiv.textContent = message;
+            statusDiv.style.color = isError ? "red" : "green";
+        }
+
+        // Eingabefelder leeren
+        function clearInputFields() {
+            usernameInput.value = "";
+            passwordInput.value = "";
+        }
+
+        // Eingabefelder des Registrierungsfensters leeren
+        function clearRegisterInputFields() {
+            document.getElementById("firstname").value = "";
+            document.getElementById("lastname").value = "";
+            document.getElementById("street").value = "";
+            document.getElementById("housenumber").value = "";
+            document.getElementById("zipcode").value = "";
+            document.getElementById("city").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("userid").value = "";
+            document.getElementById("registerPassword").value = "";
+            document.getElementById("confirmPassword").value = "";
+        }
+        
+        // Login-Funktion
+        function login() {
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (!username || !password) {
+                updateStatus("Bitte Benutzername und Passwort eingeben!", true);
+                return;
+            }
+
+            if (userDatabase[username] && userDatabase[username].password === password) {
+                currentUser = username;
+                localStorage.setItem("currentUser", username);
+                updateStatus(`Erfolgreich eingeloggt als ${username}`);
+                closeLoginPopup(); // Pop-up schließen nach erfolgreichem Login
+                toggleButtons();
+            } else {
+                updateStatus("Falscher Benutzername oder Passwort!", true);
+                clearInputFields(); // Leert die Eingabefelder bei falschen Anmeldedaten
+            }
+        }
+
+        // Neue Benutzerregistrierung im neuen Fenster
+        function registerNewUser() {
+            const firstname = document.getElementById("firstname").value.trim();
+            const lastname = document.getElementById("lastname").value.trim();
+            const street = document.getElementById("street").value.trim();
+            const housenumber = document.getElementById("housenumber").value.trim();
+            const zipcode = document.getElementById("zipcode").value.trim();
+            const city = document.getElementById("city").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const userid = document.getElementById("userid").value.trim();
+            const password = document.getElementById("registerPassword").value.trim();
+            const confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+            if (!firstname || !lastname || !street || !housenumber || !zipcode || !city || !email || !userid || !password || !confirmPassword) {
+                alert("Bitte alle Felder ausfüllen!");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Passwörter stimmen nicht überein!");
+                return;
+            }
+
+            if (userDatabase[userid]) {
+                alert("NutzerID bereits vergeben!");
+                return;
+            }
+
+            // Speichern der neuen Benutzerdaten in der "Datenbank"
+            userDatabase[userid] = {
+                firstname: firstname,
+                lastname: lastname,
+                street: street,
+                housenumber: housenumber,
+                zipcode: zipcode,
+                city: city,
+                email: email,
+                password: password,
+            }
+
+            localStorage.setItem("userDatabase", JSON.stringify(userDatabase));
+            alert("Benutzer erfolgreich registriert!");
+            closeRegisterPopup();
+        }
+
+        // Logout-Funktion
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem("currentUser");
+            updateStatus("Erfolgreich ausgeloggt.");
+            clearInputFields(); // Leert die Eingabefelder nach dem Logout
+            toggleButtons();
+        }
+
+        // Buttons entsprechend dem Status umschalten
+        function toggleButtons() {
+            if (currentUser) {
+                loginButton.style.display = "none";
+                registerButton.style.display = "none";
+                logoutButton.style.display = "block";
+            } else {
+                loginButton.style.display = "block";
+                registerButton.style.display = "block";
+                logoutButton.style.display = "none";
+            }
+        }
+
+        // Pop-up öffnen
+        function openLoginPopup() {
+            loginContainer.style.display = "block";
+        }
+
+        // Pop-up schließen
+        function closeLoginPopup() {
+            loginContainer.style.display = "none";
+        }
+
+        // Register-Pop-up öffnen
+        function openRegisterPopup() {
+            registerContainer.style.display = "block";
+        }
+
+        // Register-Pop-up schließen
+        function closeRegisterPopup() {
+            registerContainer.style.display = "none";
+        }
+
+        // Event-Listener hinzufügen
+        loginButton.addEventListener("click", login);
+        registerButton.addEventListener("click", register);
+        registerButton.addEventListener("click", registerNewUser);
+        logoutButton.addEventListener("click", logout);
+
+        // Initialer Status
+        if (currentUser) {
+            updateStatus(`Bereits eingeloggt als ${currentUser}`);
+        } else {
+            updateStatus("Bitte einloggen oder registrieren.");
+        }
+        toggleButtons();
+
+        // Eingabefelder leeren beim Aktualisieren der Seite
+        clearInputFields();
+
+        
+        // Register-Pop-up schließen
+        /*function closeRegisterPopup() {
+            registerContainer.style.display = "none";
+            clearRegisterInputFields(); // Leert die Eingabefelder des Registrierungsfensters
+        }*/
+    </script>
+</body>
+</html>

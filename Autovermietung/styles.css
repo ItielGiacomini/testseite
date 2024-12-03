@@ -1,0 +1,213 @@
+/*Bilder als Buttons mit Verlinkung*/
+
+/* Styling für Bild als Button */
+.image-button {
+    display: inline-block;
+    border: none;
+    margin: 30px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.image-button img {
+    width: 450px; /* Bildgröße anpassen */
+    height: auto;
+    border-radius: 10px; /* Abgerundete Ecken */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.image-button img:hover {
+    transform: scale(1.2); /* Vergrößert das Bild bei Hover */
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Schatten-Effekt */
+}
+    
+/*----------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*Bilder Posetionierung und Formatierung*/
+
+/* Container für die Bilder zentrieren */
+.image-container {
+    display: flex; /* Flexbox-Layout für einfache Zentrierung */
+    justify-content: center; /* Zentriert die Bilder horizontal */
+    /*vertical-align: middle; /* Vertikale Zentrierung */
+    gap: 30px; /* Abstand zwischen den Bildern */
+    margin: 10px 20px 10px 20px; /* Optional: Abstand von oben */
+}
+
+/* Styling für die Bilder */
+.image-container img {
+    max-width: 200px; /* Begrenzung der Bildbreite */
+    height: auto; /* Verhältnis beibehalten */
+    border-radius: 10px; /* Abgerundete Ecken */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Schatteneffekt */
+    transition: transform 0.3s; /* Animation bei Hover */
+}
+
+/* Hover-Effekt */
+.image-container img:hover {
+    transform: scale(1.2); /* Vergrößert das Bild beim Hover */
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/* Tabbelendesing */
+
+/* Grundlegendes Tabellenstyling */
+.styled-table {
+    width: 80%; /* Tabellenbreite */
+    margin: 20px auto; /* Zentriert die Tabelle */
+    border-collapse: collapse; /* Entfernt doppelte Ränder */
+    font-size: 18px; /* Schriftgröße */
+    font-family: Arial, sans-serif;
+    text-align: center; /* Text linksbündig */
+}
+
+/* Tabellenkopf-Styling */
+.styled-table thead tr {
+    background-color: #4457c5; /* Hintergrundfarbe */
+    color: #ffffff; /* Textfarbe */
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Tabellenzellen-Styling */
+.styled-table th, .styled-table td {
+    padding: 12px 15px; /* Innenabstand */
+    /*background-color: #f3f3f3;*/
+    border: 1px solid #000000; /* Zellenrand */
+}
+
+/* Zebra-Streifen für Zeilen */
+.styled-table tbody /*tr:nth-child(even)*/ {                                /*tr:nth-child(even)*/  /*macht den Zebra effect bei allen ungeraden Zeilen*/
+    background-color: #f3f3f3; /* Hintergrundfarbe für gerade Zeilen */
+} 
+
+/* Hover-Effekt für Zeilen */
+.styled-table tbody tr:hover {
+    background-color: #f1f1f1; /* Leichtes Grau beim Hover */
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+body {
+    /*background-image: url('img/Nissan_Hintergrund.jpg'); /* Pfad zum Bild */
+    /*background-size: cover; /* Bild deckt den gesamten Bereich ab */
+    /*background-position: center; /* Bild zentrieren */
+    /*background-repeat: no-repeat; /* Verhindert das Wiederholen des Bildes */
+    /*height: 100vh; /* Höhe des gesamten Viewports */
+    /*margin: 0; /* Entfernt Standardabstände des Browsers */
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+.content {
+    width: 70%;
+    margin: 50px auto;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+}
+.form-section {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-bottom: 2px dashed #ccc;
+}
+.form-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+label {
+    width: 200px;
+    vertical-align: top;
+}
+select, input[type="text"], textarea, input[type="date"] {
+    width: calc(100% - 220px);
+    padding: 10px;
+    margin-top: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+textarea {
+    width: calc(100% - 220px);
+}
+.checkbox-group, .radio-group {
+    margin-top: 15px;
+    padding-left: 220px;
+}
+.checkbox-group label, .radio-group label {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+.buttons-position {
+    display: flex;  
+    justify-content: center; /* Flexbox-Layout für einfache Zentrierung */
+    text-decoration: none;
+    transform: transform 0,3s;
+    transform: scale(1,1);
+    /*background-color: #ccc;*/
+    /*margin: 100px 10px 100px 10px;*/
+}
+.buttons {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 5%;
+}
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button[type="reset"] {
+    background-color: #ccc;
+    margin-right: 15px;
+}
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+}
+button[type="link"] {
+    background-color: #ccc;
+} 
+button[type="An/Re"] {
+    background-color: #007bff;
+    color:white;
+    width: 120px;
+    height: auto;
+    margin-top: 30px;
+}
+button:hover[type=An/Re] {
+    background-color: #0056b3;
+}
+footer {
+    width: 100%;
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    color: white;
+}
+footer a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+footer a.active {
+    color: yellow;
+}
+.checkbox-group input, .radio-group input {
+    margin-right: 10px;
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
